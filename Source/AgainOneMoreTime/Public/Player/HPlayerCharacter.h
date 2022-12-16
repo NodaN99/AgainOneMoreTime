@@ -13,7 +13,7 @@ class AGAINONEMORETIME_API AHPlayerCharacter : public ACharacter
 
 public:
 	// Sets default values for this character's properties
-	AHPlayerCharacter();
+	AHPlayerCharacter(const FObjectInitializer& ObjInit);
 
 protected:
 	// Called when the game starts or when spawned
@@ -32,6 +32,16 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable, Category = "Movement")
+	bool bIsRunning() const;
+
+private:
+	bool bWantsToRun = false;
+	bool bIsMovingForward = false;
+
 	void MoveForward(float Value);
 	void MoveRight(float Value);
+
+	void OnStartRun();
+	void OnStopRun();
 };

@@ -6,9 +6,6 @@
 #include "GameFramework/Character.h"
 #include "HPlayerCharacter.generated.h"
 
-class UCameraComponent;
-class USpringArmComponent;
-
 UCLASS()
 class AGAINONEMORETIME_API AHPlayerCharacter : public ACharacter
 {
@@ -23,10 +20,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	UCameraComponent* Camera;
-
+	class UCameraComponent* Camera;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	USpringArmComponent* SpringArm;
+	class USpringArmComponent* SpringArm;
 
 public:	
 	// Called every frame

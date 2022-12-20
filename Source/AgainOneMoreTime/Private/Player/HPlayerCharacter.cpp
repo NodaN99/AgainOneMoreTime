@@ -5,9 +5,11 @@
 #include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/MyCharacterMovementComponent.h"
 
 // Sets default values
-AHPlayerCharacter::AHPlayerCharacter()
+AHPlayerCharacter::AHPlayerCharacter(const FObjectInitializer& ObjInit) 
+	: Super(ObjInit.SetDefaultSubobjectClass<UMyCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -43,14 +45,34 @@ void AHPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis("LookUp", this, &AHPlayerCharacter::AddControllerPitchInput);
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AHPlayerCharacter::Jump);
+	PlayerInputComponent->BindAction("Run", IE_Pressed, this, &AHPlayerCharacter::OnStartRun);
+	PlayerInputComponent->BindAction("Run", IE_Released, this, &AHPlayerCharacter::OnStopRun);
 }
 
 void AHPlayerCharacter::MoveForward(float Value)
 {
+	if (Value == 0.f) return;
+	bIsMovingForward = Value > 0.f;
 	AddMovementInput(GetActorForwardVector(), Value);
 }
 
 void AHPlayerCharacter::MoveRight(float Value)
 {
+	if (Value == 0.f) return;
 	AddMovementInput(GetActorRightVector(), Value);
+}
+
+void AHPlayerCharacter::OnStartRun()
+{
+	bWantsToRun = true;
+}
+
+void AHPlayerCharacter::OnStopRun()
+{
+	bWantsToRun = false;
+}
+
+bool AHPlayerCharacter::bIsRunning() const
+{
+	return bWantsToRun && bIsMovingForward && !GetVelocity().IsZero();
 }

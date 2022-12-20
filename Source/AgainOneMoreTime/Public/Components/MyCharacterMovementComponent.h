@@ -14,4 +14,9 @@ class AGAINONEMORETIME_API UMyCharacterMovementComponent : public UCharacterMove
 {
 	GENERATED_BODY()
 	
+public:
+	virtual float GetMaxSpeed() const override;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement", meta = (ClampMin = "1.5", ClampMax = "10.0"))
+	float RunModifire = 2.f;
 };

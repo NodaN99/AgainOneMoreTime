@@ -6,6 +6,10 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/MyCharacterMovementComponent.h"
+#include "Components/HHealthComponent.h"
+#include "Components/TextRenderComponent.h"
+
+DEFINE_LOG_CATEGORY_STATIC(LogHCharacter, All, All)
 
 // Sets default values
 AHPlayerCharacter::AHPlayerCharacter(const FObjectInitializer& ObjInit) 
@@ -20,18 +24,32 @@ AHPlayerCharacter::AHPlayerCharacter(const FObjectInitializer& ObjInit)
 
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Camera->SetupAttachment(SpringArm);
+
+	HealthComponent = CreateDefaultSubobject<UHHealthComponent>("HealthComponent");
+
+	HealthTextComponent = CreateDefaultSubobject<UTextRenderComponent>("TextComp");
+	HealthTextComponent->SetupAttachment(GetRootComponent());
 }
 
 // Called when the game starts or when spawned
 void AHPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	check(HealthComponent);
+	check(HealthTextComponent);
+
+	OnHealthChange(HealthComponent->GetHeath());
+	HealthComponent->OnDeath.AddUObject(this, &AHPlayerCharacter::OnDeath);
+	HealthComponent->OnHealthChange.AddUObject(this, &AHPlayerCharacter::OnHealthChange);
 }
 
 // Called every frame
 void AHPlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	const auto Health = HealthComponent->GetHeath();
 }
 
 // Called to bind functionality to input
@@ -39,11 +57,13 @@ void AHPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	//Binding axis
 	PlayerInputComponent->BindAxis("MoveForward", this, &AHPlayerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AHPlayerCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("Turn", this, &AHPlayerCharacter::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &AHPlayerCharacter::AddControllerPitchInput);
 
+	//Binding action
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AHPlayerCharacter::Jump);
 	PlayerInputComponent->BindAction("Run", IE_Pressed, this, &AHPlayerCharacter::OnStartRun);
 	PlayerInputComponent->BindAction("Run", IE_Released, this, &AHPlayerCharacter::OnStopRun);
@@ -72,7 +92,24 @@ void AHPlayerCharacter::OnStopRun()
 	bWantsToRun = false;
 }
 
+//Caling when charcter IsRunning
 bool AHPlayerCharacter::bIsRunning() const
 {
 	return bWantsToRun && bIsMovingForward && !GetVelocity().IsZero();
+}
+
+//Caling when character death
+void AHPlayerCharacter::OnDeath()
+{
+	UE_LOG(LogHCharacter, Display, TEXT("Character id dead"));
+
+	PlayAnimMontage(DeathAnimMontage);
+
+	GetCharacterMovement()->DisableMovement();
+}
+
+//Caling when health change
+void AHPlayerCharacter::OnHealthChange(float Health)
+{
+	HealthTextComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
 }

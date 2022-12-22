@@ -42,22 +42,36 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	//Function for run
 >>>>>>> origin/master
+=======
+	//Function for run
+>>>>>>> origin/RaDick
 	UFUNCTION(BlueprintCallable, Category = "Movement")
 	bool bIsRunning() const;
 
 private:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	//Var for run
+>>>>>>> origin/RaDick
 	bool bWantsToRun = false;
 	bool bIsMovingForward = false;
 
+	//Void for move
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 
+	//Void for run
 	void OnStartRun();
 	void OnStopRun();
+
+	//Void for health
+	void OnDeath();
+	void OnHealthChange(float Health);
 };
 =======
 	//Var for run

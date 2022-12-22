@@ -11,14 +11,24 @@ UHHealthComponent::UHHealthComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/RaDick
 // Called when the game starts
 void UHHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
+<<<<<<< HEAD
 	//Set health
 	SetHealth(MaxHealth);
 
 	//Get actor owner and connect delegate
+=======
+
+	SetHealth(MaxHealth);
+
+>>>>>>> origin/RaDick
 	AActor* ComponentOwner = GetOwner();
 	if (ComponentOwner)
 	{
@@ -40,7 +50,13 @@ void UHHealthComponent::OnTakeAnyDamage(AActor* DamagedActor, float Damage, cons
 
 void UHHealthComponent::SetHealth(float NewHealth)
 {
+<<<<<<< HEAD
 	//FMath::Clamp(New, Min, Max)
 	Health = FMath::Clamp(NewHealth, 0.f, MaxHealth);
 	OnHealthChange.Broadcast(Health);
 }
+=======
+	Health = FMath::Clamp(NewHealth, 0.f, MaxHealth);
+	OnHealthChange.Broadcast(Health);
+}
+>>>>>>> origin/RaDick

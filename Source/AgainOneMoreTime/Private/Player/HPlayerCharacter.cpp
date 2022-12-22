@@ -39,6 +39,7 @@ void AHPlayerCharacter::BeginPlay()
 	check(HealthComponent);
 	check(HealthTextComponent);
 
+	//Connect to delegates
 	OnHealthChange(HealthComponent->GetHeath());
 	HealthComponent->OnDeath.AddUObject(this, &AHPlayerCharacter::OnDeath);
 	HealthComponent->OnHealthChange.AddUObject(this, &AHPlayerCharacter::OnHealthChange);

@@ -25,6 +25,15 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	class USpringArmComponent* SpringArm;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	class UHHealthComponent* HealthComponent;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	class UTextRenderComponent* HealthTextComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Animation")
+	UAnimMontage* DeathAnimMontage;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -32,10 +41,15 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+<<<<<<< HEAD
+=======
+	//Function for run
+>>>>>>> origin/master
 	UFUNCTION(BlueprintCallable, Category = "Movement")
 	bool bIsRunning() const;
 
 private:
+<<<<<<< HEAD
 	bool bWantsToRun = false;
 	bool bIsMovingForward = false;
 
@@ -45,3 +59,21 @@ private:
 	void OnStartRun();
 	void OnStopRun();
 };
+=======
+	//Var for run
+	bool bWantsToRun = false;
+	bool bIsMovingForward = false;
+
+	//Void for move
+	void MoveForward(float Value);
+	void MoveRight(float Value);
+
+	//Void for run
+	void OnStartRun();
+	void OnStopRun();
+
+	//Void for health
+	void OnDeath();
+	void OnHealthChange(float Health);
+};
+>>>>>>> origin/master

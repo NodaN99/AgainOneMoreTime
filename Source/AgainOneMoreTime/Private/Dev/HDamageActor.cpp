@@ -27,7 +27,10 @@ void AHDamageActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+<<<<<<< HEAD
 	//Draw damage sphere
+=======
+>>>>>>> origin/RaDick
 	DrawDebugSphere(GetWorld(), GetActorLocation(), Radius, 24, SphereColor);
 	UGameplayStatics::ApplyRadialDamage(GetWorld(), Damage, GetActorLocation(), Radius, DamageType, {}, this, nullptr, bDoFullDamage);
 }

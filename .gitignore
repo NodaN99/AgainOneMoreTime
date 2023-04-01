@@ -75,5 +75,10 @@ DerivedDataCache/*
 
 # Ingore textures
 Content/ResearchMegaPack/*
+<<<<<<< HEAD
 Content/Man/*
 Content/MilitaryWeapSilver/*
+=======
+Content/MilitaryWeapSilver/*
+Content/Man/*
+>>>>>>> adb3500cfafe48f04b50f0d56a4512b3a1011b1b

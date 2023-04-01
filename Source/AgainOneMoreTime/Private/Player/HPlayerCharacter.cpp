@@ -12,7 +12,12 @@
 =======
 >>>>>>> origin/RaDick
 #include "Components/HHealthComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/TextRenderComponent.h"
+#include "GameFramework/Controller.h"
+#include "Weapons/HBaseWeaponActor.h"
+#include "Components/HWeaponComponent.h"
+#include "Light/SwitchLight.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogHCharacter, All, All)
 <<<<<<< HEAD
@@ -38,6 +43,8 @@ AHPlayerCharacter::AHPlayerCharacter(const FObjectInitializer& ObjInit)
 
 	HealthTextComponent = CreateDefaultSubobject<UTextRenderComponent>("TextComp");
 	HealthTextComponent->SetupAttachment(GetRootComponent());
+
+	WeaponComponent = CreateDefaultSubobject<UHWeaponComponent>("WeaponComponent");
 }
 
 // Called when the game starts or when spawned
@@ -69,6 +76,9 @@ void AHPlayerCharacter::Tick(float DeltaTime)
 void AHPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	check(PlayerInputComponent);
+	check(WeaponComponent);
+	check(SwitchLight);
 
 	//Binding axis
 	PlayerInputComponent->BindAxis("MoveForward", this, &AHPlayerCharacter::MoveForward);
@@ -80,6 +90,10 @@ void AHPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AHPlayerCharacter::Jump);
 	PlayerInputComponent->BindAction("Run", IE_Pressed, this, &AHPlayerCharacter::OnStartRun);
 	PlayerInputComponent->BindAction("Run", IE_Released, this, &AHPlayerCharacter::OnStopRun);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, WeaponComponent, &UHWeaponComponent::StartFire);
+	PlayerInputComponent->BindAction("Fire", IE_Released, WeaponComponent, &UHWeaponComponent::StopFire);
+	PlayerInputComponent->BindAction("Reload", IE_Pressed, WeaponComponent, &UHWeaponComponent::Reload);
+	PlayerInputComponent->BindAction("Interaction", IE_Pressed, SwitchLight, &ASwitchLight::SwitchLight);
 }
 
 void AHPlayerCharacter::MoveForward(float Value)
@@ -131,6 +145,10 @@ void AHPlayerCharacter::OnDeath()
 	PlayAnimMontage(DeathAnimMontage);
 
 	GetCharacterMovement()->DisableMovement();
+	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+
+	/*APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	DisableInput(PlayerController);*/
 }
 
 //Caling when health change

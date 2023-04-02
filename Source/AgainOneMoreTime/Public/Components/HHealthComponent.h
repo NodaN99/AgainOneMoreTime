@@ -40,8 +40,4 @@ private:
 	void OnTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
 	void SetHealth(float NewHealth);
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> origin/RaDick

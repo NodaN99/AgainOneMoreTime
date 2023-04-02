@@ -6,11 +6,6 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/MyCharacterMovementComponent.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> origin/RaDick
 #include "Components/HHealthComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/TextRenderComponent.h"
@@ -20,10 +15,6 @@
 #include "Light/SwitchLight.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogHCharacter, All, All)
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/RaDick
 
 // Sets default values
 AHPlayerCharacter::AHPlayerCharacter(const FObjectInitializer& ObjInit) 
@@ -55,10 +46,7 @@ void AHPlayerCharacter::BeginPlay()
 	check(HealthComponent);
 	check(HealthTextComponent);
 
-<<<<<<< HEAD
 	//Connect to delegates
-=======
->>>>>>> origin/RaDick
 	OnHealthChange(HealthComponent->GetHeath());
 	HealthComponent->OnDeath.AddUObject(this, &AHPlayerCharacter::OnDeath);
 	HealthComponent->OnHealthChange.AddUObject(this, &AHPlayerCharacter::OnHealthChange);
@@ -78,7 +66,7 @@ void AHPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	check(PlayerInputComponent);
 	check(WeaponComponent);
-	check(SwitchLight);
+	//check(SwitchLight);
 
 	//Binding axis
 	PlayerInputComponent->BindAxis("MoveForward", this, &AHPlayerCharacter::MoveForward);
@@ -119,22 +107,10 @@ void AHPlayerCharacter::OnStopRun()
 	bWantsToRun = false;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-bool AHPlayerCharacter::bIsRunning() const
-{
-	return bWantsToRun && bIsMovingForward && !GetVelocity().IsZero();
-=======
 //Caling when charcter IsRunning
 bool AHPlayerCharacter::bIsRunning() const
 {
 	return bWantsToRun && bIsMovingForward && !GetVelocity().IsZero();
-=======
-//Caling when charcter IsRunning
-bool AHPlayerCharacter::bIsRunning() const
-{
-	return bWantsToRun && bIsMovingForward && !GetVelocity().IsZero();
->>>>>>> origin/RaDick
 }
 
 //Caling when character death
@@ -155,8 +131,4 @@ void AHPlayerCharacter::OnDeath()
 void AHPlayerCharacter::OnHealthChange(float Health)
 {
 	HealthTextComponent->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/RaDick
 }

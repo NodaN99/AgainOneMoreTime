@@ -74,6 +74,4 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 
 # Ingore textures
-Content/ResearchMegaPack/*
-Content/Man/*
-Content/MilitaryWeapSilver/*
+Content/ExternalContent/*

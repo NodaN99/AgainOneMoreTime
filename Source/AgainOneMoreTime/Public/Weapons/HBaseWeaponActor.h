@@ -4,19 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "H_CoreTypes.h"
 #include "HBaseWeaponActor.generated.h"
-
-USTRUCT(BlueprintType)
-struct FAmmoData
-{
-	GENERATED_USTRUCT_BODY()
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon", meta = (ClampMin = "0", ClampMax = "15"))
-	int32 Bullets;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon", meta = (ClampMin = "0", ClampMax = "45"))
-	int32 MaxBullets;
-};
 
 UCLASS()
 class AGAINONEMORETIME_API AHBaseWeaponActor : public AActor

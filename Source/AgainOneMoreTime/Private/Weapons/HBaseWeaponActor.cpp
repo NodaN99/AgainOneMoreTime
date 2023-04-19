@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Weapons/HBaseWeaponActor.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "DrawDebugHelpers.h"
@@ -17,7 +16,6 @@ AHBaseWeaponActor::AHBaseWeaponActor()
 
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>("WeaponMesh");
 	SetRootComponent(WeaponMesh);
-
 }
 
 void AHBaseWeaponActor::StartFire() {}
@@ -131,7 +129,7 @@ bool AHBaseWeaponActor::bIsClipEmpty()
 
 void AHBaseWeaponActor::ChangeClip()
 {
-	if (bIsAmmoEmpty() || CurrentAmmo.Bullets == DefaultAmmo.Bullets || CurrentAmmo.MaxBullets == 0)
+	if (CurrentAmmo.MaxBullets == 0 || CurrentAmmo.Bullets == DefaultAmmo.Bullets)
 	{
 		StopFire();
 		return;

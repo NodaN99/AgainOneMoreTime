@@ -28,7 +28,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
 	FName GunSocketName = "GunSocket";
 
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	void ChangeClip();

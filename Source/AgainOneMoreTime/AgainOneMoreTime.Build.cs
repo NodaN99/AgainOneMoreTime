@@ -12,6 +12,16 @@ public class AgainOneMoreTime : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
+		PublicIncludePaths.AddRange(new string[]
+		{
+            "AgainOneMoreTime/Public/Player",
+            "AgainOneMoreTime/Public/Dev",
+            "AgainOneMoreTime/Public/Light",
+            "AgainOneMoreTime/Public/Components",
+            "AgainOneMoreTime/Public/Weapons",
+            "AgainOneMoreTime/Public/Animations",
+        });
+
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		

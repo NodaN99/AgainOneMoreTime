@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "SwitchLight.generated.h"
 
+class UStaticMeshComponent;
+class APointLight;
+
 UCLASS()
 class AGAINONEMORETIME_API ASwitchLight : public AActor
 {
@@ -18,10 +21,10 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	class UStaticMeshComponent* StaticMesh;
+	UStaticMeshComponent* StaticMesh;
 
 	UPROPERTY(EditAnywhere, Category = "Lights")
-	TArray<class APointLight*> Lights;
+	TArray<APointLight*> Lights;
 
 	virtual void BeginPlay() override;
 };

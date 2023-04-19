@@ -6,6 +6,11 @@
 #include "GameFramework/Character.h"
 #include "HPlayerCharacter.generated.h"
 
+class UHHealthComponent;
+class UTextRenderComponent;
+class UHWeaponComponent;
+class USceneComponent;
+
 UCLASS()
 class AGAINONEMORETIME_API AHPlayerCharacter : public ACharacter
 {
@@ -15,56 +20,31 @@ public:
 	// Sets default values for this character's properties
 	AHPlayerCharacter(const FObjectInitializer& ObjInit);
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	class UCameraComponent* Camera;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	class USpringArmComponent* SpringArm;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	class UHHealthComponent* HealthComponent;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	class UTextRenderComponent* HealthTextComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	class UHWeaponComponent* WeaponComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	class ASwitchLight* SwitchLight;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Animation")
-	UAnimMontage* DeathAnimMontage;
-
-public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	//Function for run
 	UFUNCTION(BlueprintCallable, Category = "Movement")
-	bool bIsRunning() const;
+	virtual bool bIsRunning() const;
 
-private:
-	//Var for run
-	bool bWantsToRun = false;
-	bool bIsMovingForward = false;
+	UFUNCTION(BlueprintCallable, Category = "Movement")
+	float GetMovementDirection() const;
 
-	//Void for move
-	void MoveForward(float Value);
-	void MoveRight(float Value);
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UHHealthComponent* HealthComponent;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UTextRenderComponent* HealthTextComponent;
 
-	//Void for run
-	void OnStartRun();
-	void OnStopRun();
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UHWeaponComponent* WeaponComponent;
+
+	virtual void BeginPlay() override;
 
 	//Void for health
-	void OnDeath();
-	void OnHealthChange(float Health);
+	virtual void OnDeath();
+	virtual void OnHealthChange(float Health);
+
+private:
+	
 };

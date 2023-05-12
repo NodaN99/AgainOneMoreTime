@@ -74,8 +74,4 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 
 # Ingore textures
-<<<<<<< HEAD
 Content/ExternalContent/*
-=======
-Content/ExternalContent/*
->>>>>>> master
